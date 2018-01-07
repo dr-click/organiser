@@ -11,6 +11,8 @@ class Ability
         can [:revoke], Attendee
       elsif user.is_a?(Photographer)
         can [:create, :index], Photograph, photographer_id: user.id
+      elsif user.is_a?(Attendee)
+        can [:index], Photograph, attendee_access_code: user.access_code
       end
     end
 

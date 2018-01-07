@@ -75,14 +75,13 @@ RSpec.describe Api::PhotographsController, type: :controller do
       expect(JSON.parse(response.body)["photographs"].count).to eq(@photographer.photographs.count)
     end
 
-    it "not accessible for non organiser user" do
-      expect {
-        get :index, params: {
-          photographer_id: @photograph_2.photographer_id,
-          secret: Api::Authentication.generate_secret(api_photographer_photographs_path(@photograph_2.photographer), @attendee_2),
-          token: @attendee_2.token
-        }
-      }.to raise_error(CanCan::AccessDenied)
+    it "returns list of photographs for attendee" do
+      get :index, params: {
+        attendee_id: @attendee_2.id,
+        secret: Api::Authentication.generate_secret(api_attendee_photographs_path(@attendee_2), @attendee_2),
+        token: @attendee_2.token
+      }
+      expect(JSON.parse(response.body)["photographs"].count).to eq(@attendee_2.photographs.count)
     end
   end
 end

@@ -2,21 +2,25 @@ module Api
   class PhotographsController < ApiApplicationController
     authorize_resource
 
-    api :GET, '/photographers/:id/photographs', "List all photographs in the system"
+    api :GET, '/photographers/:id/photographs', "List all photographs in the system for photographer"
+    api :GET, '/attendees/:id/photographs', "List all photographs in the system for attendee"
     api :GET, '/photographs', "List all photographs in the system for current_user photographs"
-    description "List all photographs in the system for specifc photographer, Order by 'created_at DESC', It requires organiser user"
+    description "List all photographs in the system for specifc Photographer OR Attendee OR current_user, Order by 'created_at DESC', It requires organiser user"
     param :secret, String, :desc => "Generated secret for the url /api/photographers/:id/photographs with Organiser user token", :required => true
     param :token, String, :desc => "Organiser user token", :required => true
     example 'Response_success: {"success":true,"photographs":[]}'
     def index
-      unless params[:photographer_id].blank?
-        photographer = Photographer.find(params[:photographer_id])
+      if !params[:photographer_id].blank?
+        user = Photographer.find(params[:photographer_id])
+      elsif !params[:attendee_id].blank?
+        user = Attendee.find(params[:attendee_id])
       else
-        photographer = current_user
+        user = current_user
       end
-      photographs = photographer.photographs.order("created_at desc")
+      photographs = user.photographs.order("created_at desc")
       render :json => { success: true, photographs: photographs.as_json}, :status => 200
     end
+
 
     api :POST, '/photographs', "Create new photograph/photographs"
     description "Create a new photographs (support multiple files), It requires photographer user"

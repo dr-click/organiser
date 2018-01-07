@@ -12,6 +12,10 @@ class Attendee < User
     }
   end
 
+  def photographs
+    Photograph.where(attendee_access_code: self.access_code)
+  end
+
   #######
   private
   ######

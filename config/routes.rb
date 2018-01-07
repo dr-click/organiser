@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     end
     resources :photographs, only: [:create, :index]
     resources :attendees, only: [] do
+      resources :photographs, only: [:index]
       member do
         put :revoke
       end
