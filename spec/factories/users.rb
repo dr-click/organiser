@@ -1,9 +1,20 @@
 # By using the symbol ':user', we get Factory Girl to simulate the User model.
 FactoryGirl.define do
+  faker_password = Faker::Internet.password(min_length = 8, max_length = 16)
+
   factory :user do
-    email                 "factory@maildrop.cc"
-    password              "password"
-    password_confirmation "password"
-    confirmed_at Time.now
+    email                   Faker::Internet.unique.email
+    password                faker_password
+    password_confirmation   faker_password
+    confirmed_at            Time.now
+  end
+
+  factory :photographer, class: Photographer, parent: :user do
+  end
+
+  factory :attendee, class: Attendee, parent: :user do
+  end
+
+  factory :organiser, class: Organiser, parent: :user do
   end
 end
