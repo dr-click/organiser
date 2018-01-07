@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 #Ruby: ruby-2.4.2
+
 gem 'rails', '~> 5.0.0'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
@@ -51,7 +52,7 @@ gem "binding_of_caller", group: [:development]
 
 
 # ### ### ### ### ### ### ### ###
-# Benchmarking 
+# Benchmarking
 # https://github.com/schneems/derailed_benchmarks#dynamic-app-benchmarking
 # ### ### ### ### ### ### ### ###
 
@@ -60,7 +61,7 @@ gem "binding_of_caller", group: [:development]
 # http://www.schneems.com/2015/05/11/how-ruby-uses-memory.html
 gem 'derailed_benchmarks', group: [:development]
 gem 'stackprof', group: [:development]
-# Monitor the health and performance of your app 
+# Monitor the health and performance of your app
 # https://github.com/newrelic/rpm
 # Config: config/newrelic.yml
 # Usage: Heroku Production
@@ -105,7 +106,7 @@ gem 'active_model_serializers'
 # Store environmental variables away from git
 # https://github.com/bkeepers/dotenv
 gem 'dotenv-rails', groups: [:development, :test]
-# Server Watcher 
+# Server Watcher
 # https://github.com/alexch/rerun
 gem 'rerun', groups: [:development, :test]
 # Pagination
@@ -145,10 +146,7 @@ gem "rack-livereload", group: [:development]
 
 # Factory Girl for fixture replatement
 # https://github.com/thoughtbot/factory_girl_rails
-
-# The factory_girl gem is deprecated, upgrade to factory_bot
-# gem 'factory_girl_rails', groups: [:development, :test]
-gem 'factory_bot', groups: [:development, :test]
+gem 'factory_girl_rails', groups: [:development, :test]
 
 
 
@@ -169,17 +167,17 @@ gem 'simple_form', '~> 3.2', '>= 3.2.1'
 # HAML templating engine
 # https://github.com/indirect/haml-rails
 gem 'haml-rails', '~> 0.9.0'
-# Bootstrap templates 
+# Bootstrap templates
 # https://github.com/twbs/bootstrap-rubygem
 #gem 'bootstrap', '~> 4.0.0.alpha5'
 # https://github.com/twbs/bootstrap-sass
 gem 'bootstrap-sass', '~> 3.3.6'
-# Easily include static pages 
+# Easily include static pages
 # https://github.com/thoughtbot/high_voltage
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end
-# Easily include static pages 
+# Easily include static pages
 # https://github.com/thoughtbot/high_voltage
 gem 'high_voltage'
 # Convert existing .erb to .haml

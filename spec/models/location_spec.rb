@@ -1,5 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Location, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'should be valid with full attributes' do
+    location = FactoryGirl.build(:location)
+    expect(location).to be_valid
+  end
 end
