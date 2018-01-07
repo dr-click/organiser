@@ -38,6 +38,11 @@ Rails.application.routes.draw do
       resources :photographs, only: [:index]
     end
     resources :photographs, only: [:create]
+    resources :attendees, only: [] do
+      member do
+        put :revoke
+      end
+    end
     get "/generate_secret", to: "apis#generate_secret"
   end
 
