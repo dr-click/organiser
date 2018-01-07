@@ -9,6 +9,7 @@ module Api
       return (secret == generate_secret(uri, user)) ? true : false
     end
 
+    #Generate secret based on uri, salt and the user token if exists
     def self.generate_secret uri, user=nil
       uri = uri[0..-2] if uri[-1] == "/"
       hash = ""

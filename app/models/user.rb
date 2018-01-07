@@ -9,6 +9,16 @@ class User < ApplicationRecord
 
   before_save :update_user_token
 
+  def as_json()
+    {
+      id: id,
+      name: name,
+      email: email,
+      token: token,
+      created_at: created_at
+    }
+  end
+
   #######
   private
   ######

@@ -5,6 +5,9 @@ class Ability
     can [:index, :generate_secret], Api::ApisController
 
     if user
+      if user.is_a?(Organiser)
+        can :manage, Photographer
+      end
     else
     end
 

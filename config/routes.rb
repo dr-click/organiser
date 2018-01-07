@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  default_url_options :host => "localhost:3000"
+
   # ## #### ## ## ## ## ## ## ## ## ## ## ##
   # Devise
   #
@@ -32,6 +34,7 @@ Rails.application.routes.draw do
   apipie
   namespace :api do
     resources :apis, only: [:index]
+    resources :photographers, only: [:index, :show, :create, :update, :destroy]
     get "/generate_secret", to: "apis#generate_secret"
   end
 
