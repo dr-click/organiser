@@ -3,12 +3,17 @@ module Api
     authorize_resource
 
     api :GET, '/photographers/:id/photographs', "List all photographs in the system"
+    api :GET, '/photographs', "List all photographs in the system for current_user photographs"
     description "List all photographs in the system for specifc photographer, Order by 'created_at DESC', It requires organiser user"
     param :secret, String, :desc => "Generated secret for the url /api/photographers/:id/photographs with Organiser user token", :required => true
     param :token, String, :desc => "Organiser user token", :required => true
     example 'Response_success: {"success":true,"photographs":[]}'
     def index
-      photographer = Photographer.find(params[:photographer_id])
+      unless params[:photographer_id].blank?
+        photographer = Photographer.find(params[:photographer_id])
+      else
+        photographer = current_user
+      end
       photographs = photographer.photographs.order("created_at desc")
       render :json => { success: true, photographs: photographs.as_json}, :status => 200
     end

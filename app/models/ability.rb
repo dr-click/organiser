@@ -10,7 +10,7 @@ class Ability
         can [:index], Photograph
         can [:revoke], Attendee
       elsif user.is_a?(Photographer)
-        can [:create], Photograph, photographer_id: user.id
+        can [:create, :index], Photograph, photographer_id: user.id
       end
     end
 

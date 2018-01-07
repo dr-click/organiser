@@ -5,6 +5,7 @@ RSpec.describe Api::PhotographsController, type: :controller do
     @photograph = FactoryGirl.build(:photograph)
     @photograph_2 = FactoryGirl.create(:photograph)
     @attendee = FactoryGirl.build(:attendee)
+    @attendee_2 = FactoryGirl.create(:attendee)
     @photographer = FactoryGirl.create(:photographer)
     @organiser = FactoryGirl.create(:organiser)
   end
@@ -57,7 +58,7 @@ RSpec.describe Api::PhotographsController, type: :controller do
       expect(response).to be_success
     end
 
-    it "returns list of photographers" do
+    it "returns list of photographs" do
       get :index, params: {
         photographer_id: @photograph_2.photographer_id,
         secret: Api::Authentication.generate_secret(api_photographer_photographs_path(@photograph_2.photographer), @organiser),
@@ -66,12 +67,20 @@ RSpec.describe Api::PhotographsController, type: :controller do
       expect(JSON.parse(response.body)["photographs"].count).to eq(@photograph_2.photographer.photographs.count)
     end
 
+    it "returns list of photographs for current_user as photographer" do
+      get :index, params: {
+        secret: Api::Authentication.generate_secret(api_photographs_path, @photographer),
+        token: @photographer.token
+      }
+      expect(JSON.parse(response.body)["photographs"].count).to eq(@photographer.photographs.count)
+    end
+
     it "not accessible for non organiser user" do
       expect {
         get :index, params: {
           photographer_id: @photograph_2.photographer_id,
-          secret: Api::Authentication.generate_secret(api_photographer_photographs_path(@photograph_2.photographer), @photographer),
-          token: @photographer.token
+          secret: Api::Authentication.generate_secret(api_photographer_photographs_path(@photograph_2.photographer), @attendee_2),
+          token: @attendee_2.token
         }
       }.to raise_error(CanCan::AccessDenied)
     end
