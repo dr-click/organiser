@@ -50,6 +50,9 @@ gem 'carrierwave'
 #A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard
 gem 'jwt'
 
+#mini replacement for RMagick
+gem "mini_magick"
+
 # ### ### ### ### ### ### ### ###
 # Development
 # ### ### ### ### ### ### ### ###

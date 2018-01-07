@@ -23,5 +23,14 @@ module Api
       payload = {email: user.email, timestamp: Time.zone.now}
       return JWT.encode payload, nil, 'none'
     end
+
+    def self.generate_access_code(klass)
+      code = SecureRandom.hex(6)
+      if klass.where(access_code: code).any?
+        return self.generate_access_code(klass)
+      else
+        return code
+      end
+    end
   end
 end

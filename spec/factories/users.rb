@@ -14,6 +14,7 @@ FactoryGirl.define do
   end
 
   factory :attendee, class: Attendee, parent: :user do
+    access_code           {Faker::Code.unique.imei}
   end
 
   factory :organiser, class: Organiser, parent: :user do

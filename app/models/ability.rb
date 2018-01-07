@@ -7,8 +7,9 @@ class Ability
     if user
       if user.is_a?(Organiser)
         can :manage, Photographer
+      elsif user.is_a?(Photographer)
+        can :manage, Photograph, photographer_id: user.id
       end
-    else
     end
 
     # Define abilities for the passed in user here. For example:
