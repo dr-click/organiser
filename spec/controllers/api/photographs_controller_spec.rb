@@ -84,4 +84,18 @@ RSpec.describe Api::PhotographsController, type: :controller do
       expect(JSON.parse(response.body)["photographs"].count).to eq(@attendee_2.photographs.count)
     end
   end
+
+  describe "GET #show" do
+    it "returns success" do
+      get :show, params: {
+        id: @photograph_2.id,
+        secret: Api::Authentication.generate_secret(api_photograph_path(@photograph_2), @attendee_2),
+        token: @attendee_2.token
+      }
+
+      puts api_photograph_path(@photograph_2)
+      puts response.body
+      expect(response.body).to redirect_to(@photograph_2.image.url)
+    end
+  end
 end

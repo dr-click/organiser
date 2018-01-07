@@ -5,7 +5,7 @@ module Api
     api :GET, '/photographers/:id/photographs', "List all photographs in the system for photographer"
     api :GET, '/attendees/:id/photographs', "List all photographs in the system for attendee"
     api :GET, '/photographs', "List all photographs in the system for current_user photographs"
-    description "List all photographs in the system for specifc Photographer OR Attendee OR current_user, Order by 'created_at DESC', It requires organiser user"
+    description "List all photographs in the system for specifc Photographer OR Attendee OR current_user, Order by 'created_at DESC', It requires any user"
     param :secret, String, :desc => "Generated secret for the url /api/photographers/:id/photographs with Organiser user token", :required => true
     param :token, String, :desc => "Organiser user token", :required => true
     example 'Response_success: {"success":true,"photographs":[]}'
@@ -19,6 +19,19 @@ module Api
       end
       photographs = user.photographs.order("created_at desc")
       render :json => { success: true, photographs: photographs.as_json}, :status => 200
+    end
+
+    api :GET, '/photographs/:id', "List all photographs in the system for current_user photographs"
+    description "Download the photographs in a specific resolution, It requires Attendee user"
+    param :secret, String, :desc => "Generated secret for the url /api/photographs/:id with Organiser user token", :required => true
+    param :token, String, :desc => "Organiser user token", :required => true
+    param :resolution, String, :desc => "Photographs specific resolution [:large, :medium, :small, :origin]", :required => false
+    example 'Response_success: {"success":true,"photographs":[]}'
+    def show
+      photograph = Photograph.find(params[:id])
+      resolution = ["large", "medium", "small"].include?(params[:resolution]) ? params[:resolution] : nil
+      # render :json => { success: true, image: photograph.image.url(resolution)}, :status => 200
+      redirect_to photograph.image.url(resolution)
     end
 
 
