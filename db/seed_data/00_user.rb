@@ -4,12 +4,27 @@ User.delete_all
 password = "password"
 
 admin    = "a@maildrop.cc"
-User.create(email: admin, password: password, password_confirmation: password, sign_in_count: 0, confirmed_at: Time.now)
+organiser =  User.where(email: admin).first_or_initialize
+organiser.password = password
+organiser.password_confirmation = password
+organiser.sign_in_count ||= 0
+organiser.confirmed_at ||= Time.now
+organiser.type ||= Organiser.name
+organiser.save!
+
+
 
 user     = "a@mailinator.com"
-User.create(email: user, password: password, password_confirmation: password, sign_in_count: 0, confirmed_at: Time.now)
+photographer =  User.where(email: user).first_or_initialize
+photographer.password = password
+photographer.password_confirmation = password
+photographer.sign_in_count ||= 0
+photographer.confirmed_at ||= Time.now
+photographer.type ||= Photographer.name
+photographer.save!
 
 
 5.times do
   User.create(email: Faker::Internet.email, password: password, password_confirmation: password, sign_in_count: 1, confirmed_at: Time.now)
 end
+User.where(type: nil).update_all(type: Attendee.name)

@@ -2,7 +2,6 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    
     can [:index, :generate_secret], Api::ApisController
 
     if user
