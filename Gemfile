@@ -47,6 +47,9 @@ gem 'apipie-rails'
 # Classier solution for file uploads for Rails, Sinatra and other Ruby web frameworks
 gem 'carrierwave'
 
+#A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard
+gem 'jwt'
+
 # ### ### ### ### ### ### ### ###
 # Development
 # ### ### ### ### ### ### ### ###
