@@ -1,7 +1,18 @@
 module Api
   class PhotographsController < ApiApplicationController
     authorize_resource
-    
+
+    api :GET, '/photographers/:id/photographs', "List all photographs in the system"
+    description "List all photographs in the system for specifc photographer, Order by 'created_at DESC', It requires organiser user"
+    param :secret, String, :desc => "Generated secret for the url /api/photographers/:id/photographs with Organiser user token", :required => true
+    param :token, String, :desc => "Organiser user token", :required => true
+    example 'Response_success: {"success":true,"photographs":[]}'
+    def index
+      photographer = Photographer.find(params[:photographer_id])
+      photographs = photographer.photographs.order("created_at desc")
+      render :json => { success: true, photographs: photographs.as_json}, :status => 200
+    end
+
     api :POST, '/photographs', "Create new photograph/photographs"
     description "Create a new photographs (support multiple files), It requires photographer user"
     param :secret, String, :desc => "Generated secret for the url /api/photographs with photographer user token", :required => true

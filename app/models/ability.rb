@@ -7,8 +7,9 @@ class Ability
     if user
       if user.is_a?(Organiser)
         can :manage, Photographer
+        can [:index], Photograph
       elsif user.is_a?(Photographer)
-        can :manage, Photograph, photographer_id: user.id
+        can [:create], Photograph, photographer_id: user.id
       end
     end
 
