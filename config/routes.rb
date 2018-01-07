@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
-
-  apipie
-  # ## #### ## ## ## ## ## ## ## ## ## ## ## 
+  # ## #### ## ## ## ## ## ## ## ## ## ## ##
   # Devise
-  # 
+  #
   devise_for :users, controllers: {
     sessions:      'users/sessions',
     registrations: 'users/registrations'
@@ -21,14 +19,22 @@ Rails.application.routes.draw do
 
   get 'users', to: redirect("sign_up")
 
-  # ## #### ## ## ## ## ## ## ## ## ## ## ## 
+  # ## #### ## ## ## ## ## ## ## ## ## ## ##
   # Generic Routes
-  # 
+  #
   get 'home/index'
   get 'about', to: 'high_voltage/pages#show', id: 'about'
   get 'ajax', to: 'high_voltage/pages#show', id: 'ajax'
-  
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  # Routes for Api
+  apipie
+  namespace :api do
+    resources :apis, only: [:index]
+    get "/generate_secret", to: "apis#generate_secret"
+  end
+
 
   root to: "home#index"
 end
