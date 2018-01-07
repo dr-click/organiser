@@ -43,6 +43,8 @@ gem 'cancancan', '~> 2.0'
 # Ruby on Rails API documentation tool
 gem 'apipie-rails'
 
+# Classier solution for file uploads for Rails, Sinatra and other Ruby web frameworks
+gem 'carrierwave'
 
 # ### ### ### ### ### ### ### ###
 # Development
