@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+#Ruby: ruby-2.4.2
 gem 'rails', '~> 5.0.0'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
@@ -144,7 +145,14 @@ gem "rack-livereload", group: [:development]
 
 # Factory Girl for fixture replatement
 # https://github.com/thoughtbot/factory_girl_rails
-gem 'factory_girl_rails', groups: [:development, :test]
+
+# The factory_girl gem is deprecated, upgrade to factory_bot
+# gem 'factory_girl_rails', groups: [:development, :test]
+gem 'factory_bot', groups: [:development, :test]
+
+
+
+
 # Capybara for automated testing (w/o cucumber)
 # https://github.com/teamcapybara/capybara
 gem 'capybara', groups: [:test]
@@ -214,5 +222,3 @@ gem 'dalli', groups: [:production]
 # ### ### ### ### ### ### ### ###
 # App Specific Gems
 # ### ### ### ### ### ### ### ###
-
-
